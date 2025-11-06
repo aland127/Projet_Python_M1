@@ -16,17 +16,24 @@ class Document:
     
 class Author:
 
-    def __init__(self, nom, ndoc):
+    def __init__(self, nom):
         self.nom = nom
-        self.ndoc = ndoc
+        self.ndoc = 0
         self.production = {}
         
 
     def add(self, key, value):
-        self.production[key] = value
+        if key not in self.production:
+            self.production[key] = value
+        self.ndoc = len(self.production.keys())
 
     def __str__(self):
-        return self.nom
+        return ("nom = "+self.nom+" ndoc = "+self.ndoc)
     
     def get_stat(self):
-        return len(self.production)
+        moy_char = 0
+        for x in self.production.values():
+            moy_char+= len(x)
+        moy_char/= len(self.production.keys())
+
+        return ("nb doc = "+len(self.production)+", taille moyenne ds docs = "+ moy_char)
